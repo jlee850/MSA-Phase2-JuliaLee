@@ -1,27 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { ThemeProvider } from '@emotion/react';
-import { lightTheme } from './themes';
-import { useGetAllTodoListsQuery } from './api/apiSlice';
-import { CircularProgress } from '@mui/material';
-import { TodoList } from './stories/TodoList/TodoList';
+import React from "react";
+import PromptToUser from "./components/PromptToUser";
+import RecipeBlurb from "./components/RecipeBlurb";
+import NavigationBar from "./components/NavigationBar";
+import IngredientList from "./components/IngredientList";
+import "./App.css";
 
 function App() {
-  const {data, isLoading, isError } = useGetAllTodoListsQuery();
-
-  if(isLoading) return <CircularProgress />;
-  if(isError) return <p>Oops, Something went wrong!</p>;
-
   return (
-    //TODO: Hook theming up to redux so that it selects
-    <ThemeProvider theme={lightTheme}>
-      <div className="App">
-        {data!.length === 0 && <p>No Todo Lists!</p>}
-        {data!.map(tdl => <TodoList todoListItems={tdl.todoItemList} key={tdl.id}/>)}
-      </div>
-    </ThemeProvider>
+    <article>
+      <h1 className="header">RECIPES</h1>
+      <NavigationBar /> <br />
+      <RecipeBlurb /> <br /> <br />
+      <PromptToUser />
+      <IngredientList />
+      <GetRecipeButton />
+    </article>
   );
 }
-
 export default App;
+
+function GetRecipeButton() {
+  return <button>Get Recipes</button>;
+}

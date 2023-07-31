@@ -1,0 +1,13 @@
+article {
+  box-sizing: border-box;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 13px;
+  align-items: center;
+  color: rgb(51, 93, 86);
+}
+
+body {
+  background-color: rgb(153, 210, 200);
+}
