@@ -29,6 +29,7 @@ namespace Back_End.Services
                 return AuthenticateResult.Fail("Missing Authorization Header");
 
             User user = null;
+
             try
             {
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
@@ -43,9 +44,9 @@ namespace Back_End.Services
                 return AuthenticateResult.Fail("Invalid Authorization Header");
             }
 
-            if (user == null)
+            if (user == null) {
                 return AuthenticateResult.Fail("Invalid Username or Password");
-
+            }
             var claims = new[] { new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()), new Claim(ClaimTypes.Name, user.Username) };
             var identity = new ClaimsIdentity(claims, "Basic");
             var principal = new ClaimsPrincipal(identity);

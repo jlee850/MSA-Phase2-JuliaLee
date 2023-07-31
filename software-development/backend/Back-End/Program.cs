@@ -1,6 +1,7 @@
 using Back_End.Contexts;
 using Back_End.Services;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -17,15 +18,19 @@ var configuration = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json")
     .Build();
 
-builder.Services.AddDbContext<TodoItemContext>(opt =>
-    opt.UseInMemoryDatabase(configuration.GetConnectionString("DatabaseConnection"))
-);
-builder.Services.AddScoped<TodoItemService>();
+var connectionString = configuration.GetConnectionString("DatabaseConnection");
 
-builder.Services.AddDbContext<TodoListContext>(opt =>
-    opt.UseInMemoryDatabase(configuration.GetConnectionString("DatabaseConnection"))
+builder.Services.AddDbContext<UserContext>(opt =>
+    opt.UseSqlServer(connectionString));
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddUserStore<UserContext>();
+
+builder.Services.AddDbContext<RecipeContext>(opt =>
+    opt.UseSqlServer(connectionString)
 );
-builder.Services.AddScoped<TodoListService>();
+       
+builder.Services.AddScoped<RecipeService>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
@@ -44,7 +49,7 @@ builder.Services.AddOpenApiDocument(document =>
         Type = OpenApiSecuritySchemeType.Basic,
         Name = "Authorization",
         In = OpenApiSecurityApiKeyLocation.Header,
-        Description = "Input your username and password to access the API"
+        Description = "Access token",
     });
 
     document.OperationProcessors.Add(
