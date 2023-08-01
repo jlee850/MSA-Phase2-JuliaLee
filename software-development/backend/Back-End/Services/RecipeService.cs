@@ -18,7 +18,7 @@ namespace Back_End.Services
             _recipeContext = context;
         }
 
-        public async Task<Recipes> CreateRecipe(Recipes recipe)
+        public async Task<Recipe> CreateRecipe(Recipe recipe)
         {
 
             var apiKey = "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";
@@ -53,12 +53,17 @@ namespace Back_End.Services
             return recipe;
         }
 
-        public async Task<Recipes> GetRecipe(long id)
+        public async Task<Recipe> GetRecipe(long id)
         {
             return await _recipeContext.Recipes.FindAsync(id);
         }
 
-        public async Task UpdateRecipe(Recipes recipe)
+        public async Task<List<Recipe>> GetAllRecipes()
+        {
+            return await _recipeContext.Recipes.ToListAsync();
+        }
+
+        public async Task UpdateRecipe(Recipe recipe)
         {
             _recipeContext.Entry(recipe).State = EntityState.Modified;
             await _recipeContext.SaveChangesAsync();

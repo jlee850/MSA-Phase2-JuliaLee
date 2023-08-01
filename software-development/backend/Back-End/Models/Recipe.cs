@@ -1,6 +1,6 @@
 ﻿namespace Back_End.Models
 {
-	public class Recipes
+	public class Recipe
 	{
 		public required long Id { get; set; }
 		public required string NameOfRecipe { get; set; }

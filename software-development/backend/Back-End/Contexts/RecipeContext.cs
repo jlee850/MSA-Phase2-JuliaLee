@@ -9,11 +9,11 @@ namespace Back_End.Contexts
         public RecipeContext(DbContextOptions<RecipeContext> options) : base(options)
         {
         }
-        public DbSet<Recipes> Recipes { get; set; } = null!;
+        public DbSet<Recipe> Recipes { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Recipes>()             
+            modelBuilder.Entity<Recipe>()             
                 .Property(re => re.Id)
                 .IsRequired();
         }

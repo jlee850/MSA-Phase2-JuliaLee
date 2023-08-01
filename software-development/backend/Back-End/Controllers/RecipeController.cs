@@ -19,7 +19,7 @@ namespace Back_End.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Recipes>> GetRecipe(long id)
+        public async Task<ActionResult<Recipe>> GetRecipe(long id)
         {
             var recipeName = await _service.GetRecipe(id);
 
@@ -31,8 +31,14 @@ namespace Back_End.Controllers
             return recipeName;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetTodoList()
+        {
+            return await _service.GetAllRecipes();
+        }
+
         [HttpPost]
-        public async Task<ActionResult<Recipes>> CreateRecipe(Recipes recipe)
+        public async Task<ActionResult<Recipe>> CreateRecipe(Recipe recipe)
         {
             var newRecipe = await _service.CreateRecipe(recipe);
 
@@ -41,7 +47,7 @@ namespace Back_End.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecipe(long id, Recipes recipe)
+        public async Task<IActionResult> UpdateRecipe(long id, Recipe recipe)
         {
             if (id != recipe.Id)
             {
