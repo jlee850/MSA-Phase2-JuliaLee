@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const IngredientList = () => {
+type DataCallback = (data: string[]) => void;
+
+interface ChildComponentProps {
+  onDataFromChild: DataCallback;
+}
+
+const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
   const arr: string[] = [];
   const [item, setItem] = useState(""); // State to store user input
   const [items, setItems] = useState(arr); // State to store list items
@@ -9,6 +15,7 @@ const IngredientList = () => {
   const addItem = () => {
     if (item.trim() !== "") {
       setItems([...items, item]);
+      onDataFromChild(items);
       setItem(""); // Clear the user input
     }
   };
@@ -17,6 +24,7 @@ const IngredientList = () => {
   const removeItem = (index: any) => {
     const updatedItems = items.filter((_, i) => i !== index);
     setItems(updatedItems);
+    onDataFromChild(items);
   };
 
   return (

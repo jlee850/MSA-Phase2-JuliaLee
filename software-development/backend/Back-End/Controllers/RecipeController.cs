@@ -38,12 +38,11 @@ namespace Back_End.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Recipe>> CreateRecipe(Recipe recipe)
+        public async Task<ActionResult<string>> CreateRecipe(Recipe recipe)
         {
             var newRecipe = await _service.CreateRecipe(recipe);
 
-            return CreatedAtAction(nameof(CreateRecipe), new { id= newRecipe.Id, nameofRecipe = newRecipe.NameOfRecipe
-                }, newRecipe);
+            return CreatedAtAction(nameof(CreateRecipe), newRecipe);
         }
 
         [HttpPut("{id}")]

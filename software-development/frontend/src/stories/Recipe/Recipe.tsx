@@ -6,24 +6,23 @@ import {
   IconButton,
   styled,
 } from "@mui/material";
-import { TodoCard } from "../TodoCard/TodoCard";
 import { Share, Done, Close } from "@mui/icons-material";
 
 export interface RecipeProps {
-  id: number;
-  name: string;
-  typeOfCuisine: string;
+  Id: number;
+  Name: string;
+  TypeOfCuisine: string;
 }
 
 const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: "500px",
 }));
 
-function Recipe({ id, name, typeOfCuisine }: RecipeProps) {
+function Recipe({ Id, Name, TypeOfCuisine }: RecipeProps) {
   return (
     <StyledCard>
-      <CardHeader title={name} subheader={`Created By: Julia`} />
-      <CardContent>{typeOfCuisine}</CardContent>
+      <CardHeader title={Name} subheader={`Created By: Julia`} />
+      <CardContent>{TypeOfCuisine}</CardContent>
       <CardActions
         sx={{
           alignContent: "flex-end",

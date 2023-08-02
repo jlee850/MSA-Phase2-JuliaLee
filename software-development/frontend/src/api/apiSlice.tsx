@@ -1,6 +1,5 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { TodoList } from "../models/TodoList";
 import { Recipe } from "../models/Recipe";
 
 // Define a service using a base URL and expected endpoints
@@ -15,62 +14,29 @@ export const api = createApi({
   }),
   endpoints: (builder) => ({
     // Todo item endpoints
-    getTodoItemById: builder.query({
-      query: (id) => `TodoItem/${id}`,
-    }),
-    updateTodoItem: builder.mutation({
-      query: (todoItem) => ({
-        url: `TodoItem/${todoItem.Id}`,
-        method: "PUT",
-        body: todoItem,
-      }),
-    }),
-    createTodoItem: builder.mutation({
-      query: (todoItem) => ({
-        url: "TodoItem",
-        method: "POST",
-        body: todoItem,
-      }),
-    }),
-    deleteTodoItem: builder.mutation({
-      query: (id) => ({
-        url: `TodoItem/${id}`,
-        method: "DELETE",
-      }),
-    }),
-    // Todo list endpoints
-    getAllTodoLists: builder.query<TodoList[], void>({
-      query: () => ({
-        url: "TodoList",
-        method: "GET",
-      }),
+    getRecipeById: builder.query({
+      query: (Id) => `Recipe/${Id}`,
     }),
     getAllRecipes: builder.query<Recipe[], void>({
-      query: () => ({
-        url: "Recipe",
-        method: "GET",
-      }),
+      query: () => `Recipe/`,
     }),
-    getTodoListById: builder.query({
-      query: (id) => `TodoList/${id}`,
-    }),
-    updateTodoList: builder.mutation({
-      query: (todoList) => ({
-        url: `TodoList/${todoList.Id}`,
+    updateRecipe: builder.mutation({
+      query: (recipe) => ({
+        url: `Recipe/${recipe.Id}`,
         method: "PUT",
-        body: todoList,
+        body: recipe,
       }),
     }),
-    createTodoList: builder.mutation({
-      query: (todoList) => ({
-        url: "TodoList",
+    createRecipe: builder.mutation({
+      query: (recipe: Recipe) => ({
+        url: "Recipe",
         method: "POST",
-        body: todoList,
+        body: recipe,
       }),
     }),
-    deleteTodoList: builder.mutation({
-      query: (id) => ({
-        url: `TodoList/${id}`,
+    deleteRecipe: builder.mutation({
+      query: (Id) => ({
+        url: `Recipe/${Id}`,
         method: "DELETE",
       }),
     }),
@@ -80,14 +46,9 @@ export const api = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetTodoItemByIdQuery,
-  useUpdateTodoItemMutation,
-  useCreateTodoItemMutation,
-  useDeleteTodoItemMutation,
+  useGetRecipeByIdQuery,
+  useUpdateRecipeMutation,
+  useCreateRecipeMutation,
+  useDeleteRecipeMutation,
   useGetAllRecipesQuery,
-  useGetTodoListByIdQuery,
-  useUpdateTodoListMutation,
-  useCreateTodoListMutation,
-  useDeleteTodoListMutation,
-  useGetAllTodoListsQuery,
 } = api;

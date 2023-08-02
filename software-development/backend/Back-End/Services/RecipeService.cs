@@ -18,39 +18,46 @@ namespace Back_End.Services
             _recipeContext = context;
         }
 
-        public async Task<Recipe> CreateRecipe(Recipe recipe)
+        public async Task<string> CreateRecipe(Recipe recipe)
         {
 
             var apiKey = "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";
             var endpointUrl = "https://api.openai.com/v1/chat/completions";
+            var ingredients = "What are 2 recipes you can make with ";
+            var ingredientsArray = recipe.Ingredients.Split(",");
+            for (int i = 0; i < ingredientsArray.Length -1; i++)
+            {
+                ingredients += ingredientsArray[i] + ", ";
+            }
+            
+            ingredients += ingredientsArray[ingredientsArray.Length - 1] + "?";
 
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
-            //var requestBody = new
-            //{
-            //    model = "gpt-3.5-turbo",
-            //    messages = new[]
-            //    {
-            //        new { role = "user", content = "What are some recipes you can create with carrots, leeks and mussels!" }
-            //    }
-            //};
+            var requestBody = new
+            {
+                model = "gpt-3.5-turbo",
+                messages = new[]
+                {
+                    new { role = "user", content = ingredients }
+                }
+            };
 
-            //var response = await client.PostAsync(endpointUrl, new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync(endpointUrl, new StringContent(JsonSerializer.Serialize(requestBody), System.Text.Encoding.UTF8, "application/json"));
 
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var responseBody = await response.Content.ReadAsStringAsync();
-            //    Console.WriteLine(responseBody);
-            //}
-            //else
-            //{
-            //    Console.WriteLine($"Request failed with status code {response.StatusCode}");
-            //}
+            if (response.IsSuccessStatusCode)
+            {
+                var responseBody = await response.Content.ReadAsStringAsync();
+                return responseBody;
+            }
+            else
+            {
+                return $"Request failed with status code {response.StatusCode}";
+            }
 
-            _recipeContext.Recipes.Add(recipe);
-            await _recipeContext.SaveChangesAsync();
-            return recipe;
+            //_recipeContext.Recipes.Add(recipe);
+            //await _recipeContext.SaveChangesAsync();
         }
 
         public async Task<Recipe> GetRecipe(long id)

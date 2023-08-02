@@ -13,9 +13,9 @@ namespace Back_End.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Recipe>()             
-                .Property(re => re.Id)
-                .IsRequired();
+            modelBuilder.Entity<Recipe>();        
+                //.Property(re => re.Name)
+                //.IsRequired();
         }
     }
 }
