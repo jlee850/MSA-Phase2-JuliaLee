@@ -23,8 +23,10 @@ namespace Back_End.Services
 
             var apiKey = "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";
             var endpointUrl = "https://api.openai.com/v1/chat/completions";
-            var ingredients = "What are 2 recipes you can make with ";
-            var ingredientsArray = recipe.Ingredients.Split(",");
+            var ingredients = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements in the ingredient array, what are 2 recipes you can make with ";
+            //var ingredientsArray = recipe.Ingredients.Split(',');
+            var ingredientsStringwithDelimiter = recipe.Ingredients.Replace(',', ' ');
+            var ingredientsArray = ingredientsStringwithDelimiter.Split('|');
             for (int i = 0; i < ingredientsArray.Length -1; i++)
             {
                 ingredients += ingredientsArray[i] + ", ";

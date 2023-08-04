@@ -3,6 +3,7 @@ interface Recipe {
   Name?: string;
   TypeOfCuisine?: string;
   Ingredients?: string;
+  Method?: string;
 }
 
 export type { Recipe };
