@@ -11,7 +11,6 @@ import {
 import { CircularProgress } from "@mui/material";
 import NavigationBar from "./components/NavigationBar";
 import RecipeBlurb from "./components/RecipeBlurb";
-import PromptToUser from "./components/PromptToUser";
 import IngredientList from "./components/IngredientList";
 import { Recipe } from "./models/Recipe";
 import RecipeCarousel from "./components/RecipeCarousel";
@@ -63,9 +62,11 @@ function App() {
       <h1 className="header">RECIPES</h1>
       <NavigationBar /> <br />
       <RecipeBlurb /> <br /> <br />
-      <PromptToUser />
-      <IngredientList onDataFromChild={handleChildData} />
-      <button onClick={($event) => onSubmit($event)}>Get Recipes</button>
+      <div className="prompt-user">
+        <IngredientList onDataFromChild={handleChildData} />
+
+        <button onClick={($event) => onSubmit($event)}>Get Recipes</button>
+      </div>
       {recipes.length !== 0 && (
         <div>
           <RecipeCarousel recipes={recipes} />

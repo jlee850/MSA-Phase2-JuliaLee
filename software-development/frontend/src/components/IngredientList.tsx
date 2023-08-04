@@ -27,15 +27,20 @@ const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
     onDataFromChild(items);
   };
 
-  return (
-    <div>
-      <input
-        type="text"
-        value={item}
-        onChange={(e) => setItem(e.target.value)}
-      />
-      <button onClick={addItem}>Add Item</button>
+  const title = "Enter your ingredients:";
 
+  return (
+    <div className="ingredients-list">
+      <h2 className="title">{title}</h2>
+      <div className="input-container">
+        <input
+          type="text"
+          id="ingredient-input"
+          value={item}
+          onChange={(e) => setItem(e.target.value)}
+        />
+        <button id="btn-add-item" onClick={addItem}>Add Item</button>
+      </div>
       {items.length !== 0 && (
         <ul>
           {items.map((listItem, index) => (
