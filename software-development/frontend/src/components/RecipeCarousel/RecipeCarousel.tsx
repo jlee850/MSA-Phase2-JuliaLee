@@ -5,11 +5,17 @@ import "slick-carousel/slick/slick-theme.css";
 import { Recipe } from "../../models/Recipe";
 import "./RecipeCarousel.css";
 
+type DataCallback = (data: number) => void;
+
 interface ChildComponentProps {
   recipes: any[];
+  onDataFromChild: DataCallback;
 }
 
-const RecipeCarousel: React.FC<ChildComponentProps> = ({ recipes }) => {
+const RecipeCarousel: React.FC<ChildComponentProps> = ({
+  recipes,
+  onDataFromChild,
+}) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -18,7 +24,9 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({ recipes }) => {
     slidesToScroll: 1,
   };
 
-  console.log(recipes);
+  const onSaveRecipe = (key: number) => {
+    onDataFromChild(key);
+  };
 
   return (
     <Slider {...settings}>
@@ -39,6 +47,13 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({ recipes }) => {
                 <li key={index}>{methodItem}</li>
               ))}
           </ol>
+          <button
+            className="save-recipe-btn"
+            onClick={() => onSaveRecipe(index)}
+          >
+            {" "}
+            Save Recipe{" "}
+          </button>{" "}
         </div>
       ))}
     </Slider>

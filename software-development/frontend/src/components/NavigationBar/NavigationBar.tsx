@@ -1,3 +1,5 @@
+import "./NavigationBar.css";
+
 export default function NavigationBar() {
   return (
     <nav className="navigation">

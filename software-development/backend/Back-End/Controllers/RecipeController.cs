@@ -18,10 +18,10 @@ namespace Back_End.Controllers
             _service = service;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Recipe>> GetRecipe(long id)
+        [HttpGet("{ingredients}")]
+        public async Task<ActionResult<string>> GetRecipe(string ingredients)
         {
-            var recipeName = await _service.GetRecipe(id);
+            var recipeName = await _service.GetRecipe(ingredients);
 
             if (recipeName == null)
             {
@@ -32,7 +32,7 @@ namespace Back_End.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Recipe>>> GetTodoList()
+        public async Task<ActionResult<IEnumerable<Recipe>>> GetAllRecipe()
         {
             return await _service.GetAllRecipes();
         }

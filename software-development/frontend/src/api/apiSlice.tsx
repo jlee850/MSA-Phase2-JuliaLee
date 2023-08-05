@@ -15,7 +15,7 @@ export const api = createApi({
   endpoints: (builder) => ({
     // Todo item endpoints
     getRecipeById: builder.query({
-      query: (Id) => `Recipe/${Id}`,
+      query: (Ingredients) => `Recipe/${Ingredients}`,
     }),
     getAllRecipes: builder.query<Recipe[], void>({
       query: () => `Recipe/`,
@@ -47,6 +47,7 @@ export const api = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useGetRecipeByIdQuery,
+  useLazyGetRecipeByIdQuery,
   useUpdateRecipeMutation,
   useCreateRecipeMutation,
   useDeleteRecipeMutation,

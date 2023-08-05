@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import "./IngredientList.css";
 
 type DataCallback = (data: string[]) => void;
 
@@ -11,11 +12,15 @@ const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
   const [item, setItem] = useState(""); // State to store user input
   const [items, setItems] = useState(arr); // State to store list items
 
+  useEffect(() => {
+    console.log(items);
+    onDataFromChild(items);
+  }, [items]);
+
   // Function to add an item to list
   const addItem = () => {
     if (item.trim() !== "") {
       setItems([...items, item]);
-      onDataFromChild(items);
       setItem(""); // Clear the user input
     }
   };
@@ -24,7 +29,6 @@ const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
   const removeItem = (index: any) => {
     const updatedItems = items.filter((_, i) => i !== index);
     setItems(updatedItems);
-    onDataFromChild(items);
   };
 
   const title = "Enter your ingredients:";

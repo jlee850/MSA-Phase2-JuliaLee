@@ -18,21 +18,27 @@ namespace Back_End.Services
             _recipeContext = context;
         }
 
-        public async Task<string> CreateRecipe(Recipe recipe)
+        public async Task<Recipe> CreateRecipe(Recipe recipe)
+        {
+
+            _recipeContext.Recipes.Add(recipe);
+            await _recipeContext.SaveChangesAsync();
+            return recipe;
+        }
+
+        public async Task<string> GetRecipe(string ingredients)
         {
 
             var apiKey = "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";
             var endpointUrl = "https://api.openai.com/v1/chat/completions";
-            var ingredients = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements in the ingredient array, what are 2 recipes you can make with ";
-            //var ingredientsArray = recipe.Ingredients.Split(',');
-            var ingredientsStringwithDelimiter = recipe.Ingredients.Replace(',', ' ');
-            var ingredientsArray = ingredientsStringwithDelimiter.Split('|');
-            for (int i = 0; i < ingredientsArray.Length -1; i++)
+            var ingredients_prompt = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements in the ingredient array, what are 3 recipes you can make with ";
+            var ingredientsArray = ingredients.Split(',');
+            for (int i = 0; i < ingredientsArray.Length - 1; i++)
             {
-                ingredients += ingredientsArray[i] + ", ";
+                ingredients_prompt += ingredientsArray[i] + ", ";
             }
-            
-            ingredients += ingredientsArray[ingredientsArray.Length - 1] + "?";
+
+            ingredients_prompt += ingredientsArray[ingredientsArray.Length - 1] + "?";
 
             using var client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
@@ -42,7 +48,7 @@ namespace Back_End.Services
                 model = "gpt-3.5-turbo",
                 messages = new[]
                 {
-                    new { role = "user", content = ingredients }
+                    new { role = "user", content = ingredients_prompt }
                 }
             };
 
@@ -57,14 +63,6 @@ namespace Back_End.Services
             {
                 return $"Request failed with status code {response.StatusCode}";
             }
-
-            //_recipeContext.Recipes.Add(recipe);
-            //await _recipeContext.SaveChangesAsync();
-        }
-
-        public async Task<Recipe> GetRecipe(long id)
-        {
-            return await _recipeContext.Recipes.FindAsync(id);
         }
 
         public async Task<List<Recipe>> GetAllRecipes()
