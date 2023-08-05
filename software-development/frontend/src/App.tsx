@@ -13,7 +13,7 @@ import NavigationBar from "./components/NavigationBar";
 import RecipeBlurb from "./components/RecipeBlurb";
 import IngredientList from "./components/IngredientList";
 import { Recipe } from "./models/Recipe";
-import RecipeCarousel from "./components/RecipeCarousel";
+import RecipeCarousel from "./components/RecipeCarousel/RecipeCarousel";
 
 function App() {
   const arr: string[] = [];
@@ -58,21 +58,29 @@ function App() {
   };
 
   return (
-    <article>
+    <div>
       <h1 className="header">RECIPES</h1>
       <NavigationBar /> <br />
-      <RecipeBlurb /> <br /> <br />
-      <div className="prompt-user">
-        <IngredientList onDataFromChild={handleChildData} />
-
-        <button onClick={($event) => onSubmit($event)}>Get Recipes</button>
-      </div>
-      {recipes.length !== 0 && (
-        <div>
-          <RecipeCarousel recipes={recipes} />
+      <article>
+        <div className="recipe-blurb">
+          <RecipeBlurb /> <br />
         </div>
-      )}
-    </article>
+        <div>
+          <IngredientList onDataFromChild={handleChildData} /> <br />
+          <button
+            className="get-recipe-btn"
+            onClick={($event) => onSubmit($event)}
+          >
+            Get Recipes
+          </button> <br/>
+        </div>
+        {recipes.length !== 0 && (
+          <div className="carousel-container">
+            <RecipeCarousel recipes={recipes} />
+          </div>
+        )}
+      </article>
+    </div>
   );
 }
 

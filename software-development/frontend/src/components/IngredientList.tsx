@@ -39,17 +39,23 @@ const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
           value={item}
           onChange={(e) => setItem(e.target.value)}
         />
-        <button id="btn-add-item" onClick={addItem}>Add Item</button>
+        <button id="btn-add-item" onClick={addItem}>
+          Add Item
+        </button>
       </div>
       {items.length !== 0 && (
-        <ul>
+        <ol className="remove-list">
           {items.map((listItem, index) => (
-            <li key={index}>
-              {listItem}
-              <button onClick={() => removeItem(index)}>Remove</button>
+            <li key={index} className="remove-list-items">
+              <div className="remove-item-container">
+                <p>{listItem}</p>
+                <button id="btn-remove-item" onClick={() => removeItem(index)}>
+                  Remove
+                </button>
+              </div>
             </li>
           ))}
-        </ul>
+        </ol>
       )}
     </div>
   );

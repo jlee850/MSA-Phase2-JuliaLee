@@ -1,0 +1,19 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-container {
+  border-radius: 8px;
+  border-width: medium;
+  box-shadow: 0 3px 6px 0 rgba(15, 1, 1, 0.16);
+  background-color: rgb(123, 192, 179);
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.slick-slide:hover {
+  display: block;
+}
