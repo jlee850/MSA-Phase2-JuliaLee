@@ -74,7 +74,6 @@ function App() {
 
   return (
     <div>
-      <h1 className="header">RECIPES</h1>
       <NavigationBar /> <br />
       <article>
         <div className="recipe-blurb">

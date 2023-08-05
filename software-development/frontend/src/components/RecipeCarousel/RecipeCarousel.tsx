@@ -32,20 +32,18 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({
     <Slider {...settings}>
       {recipes.map((recipe, index) => (
         <div className="carousel" key={index}>
-          {recipe != "" && <h2>{recipe.name}</h2>}
-          {recipe != "" && <h3>Ingredients</h3>}
+          {<h2>{recipe.name}</h2>}
+          {<h3>Ingredients</h3>}
           <ul>
-            {recipe != "" &&
-              recipe.ingredients.map((ingredientItem: any, index: number) => (
-                <li key={index}>{ingredientItem}</li>
-              ))}
+            {recipe.ingredients.map((ingredientItem: any, index: number) => (
+              <li key={index}>{ingredientItem}</li>
+            ))}
           </ul>
-          {recipe != "" && <h3>Method</h3>}
+          {<h3>Method</h3>}
           <ol>
-            {recipe != "" &&
-              recipe.method.map((methodItem: string, index: number) => (
-                <li key={index}>{methodItem}</li>
-              ))}
+            {recipe.method.map((methodItem: string, index: number) => (
+              <li key={index}>{methodItem}</li>
+            ))}
           </ol>
           <button
             className="save-recipe-btn"

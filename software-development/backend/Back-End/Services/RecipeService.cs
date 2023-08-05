@@ -31,7 +31,7 @@ namespace Back_End.Services
 
             var apiKey = "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";
             var endpointUrl = "https://api.openai.com/v1/chat/completions";
-            var ingredients_prompt = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements in the ingredient array, what are 3 recipes you can make with ";
+            var ingredients_prompt = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements for ingredients, what are 3 recipes you can make with ";
             var ingredientsArray = ingredients.Split(',');
             for (int i = 0; i < ingredientsArray.Length - 1; i++)
             {
