@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import {
@@ -12,6 +12,7 @@ import RecipeBlurb from "./components/RecipeBlurb";
 import IngredientList from "./components/IngredientList/IngredientList";
 import { Recipe } from "./models/Recipe";
 import RecipeCarousel from "./components/RecipeCarousel/RecipeCarousel";
+import { SpinningCircles } from "react-loading-icons";
 
 function App() {
   const arr: string[] = [];
@@ -21,6 +22,7 @@ function App() {
   const [recipeNumberFromChild, setRecipeNumberFromChild] = useState(0);
   const [recipes, setRecipes] = useState(recipesArr);
   const [trigger, { data }] = useLazyGetRecipeByIdQuery();
+  const [dataLoading, setDataLoading] = useState(false);
 
   // Callback function to receive data from the child component
   const handleChildData = (data: string[]) => {
@@ -52,7 +54,7 @@ function App() {
     // Do something with the fetched data
     if (data) {
       console.log("Recipe Data:", data.choices[0].message.content);
-
+      setDataLoading(false);
       try {
         const recipeToJson = JSON.parse(data.choices[0].message.content);
         setRecipes(recipeToJson.recipes);
@@ -64,10 +66,16 @@ function App() {
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setDataLoading(true);
     trigger(dataFromChild.join(","));
   };
 
   const onSaveRecipe = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    trigger(dataFromChild.join(","));
+  };
+
+  const onClearRecipe = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     trigger(dataFromChild.join(","));
   };
@@ -77,7 +85,7 @@ function App() {
       <NavigationBar /> <br />
       <article>
         <div className="recipe-blurb">
-          <RecipeBlurb /> <br />
+          <RecipeBlurb /> <br /> <br /> <br />
         </div>
         <div>
           <IngredientList onDataFromChild={handleChildData} /> <br />
@@ -87,17 +95,18 @@ function App() {
           >
             {" "}
             Get Recipes{" "}
-          </button>{" "}
+          </button>
           <br />
+          {dataLoading && <SpinningCircles className="spinning-btn" />}
+          {recipes.length !== 0 && (
+            <div className="carousel-container">
+              <RecipeCarousel
+                recipes={recipes}
+                onDataFromChild={handleChildRecipe}
+              />
+            </div>
+          )}
         </div>
-        {recipes.length !== 0 && (
-          <div className="carousel-container">
-            <RecipeCarousel
-              recipes={recipes}
-              onDataFromChild={handleChildRecipe}
-            />
-          </div>
-        )}
       </article>
     </div>
   );

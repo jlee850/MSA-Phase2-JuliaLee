@@ -1,6 +1,7 @@
 ﻿using System;
 using Back_End.Models;
 using Back_End.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace Back_End.Controllers
@@ -8,7 +9,7 @@ namespace Back_End.Controllers
 {
     [ApiController]
     [Route("api/Recipe")]
-    [Authorize(AuthenticationSchemes = "BasicAuthentication")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RecipeController : ControllerBase
     {
         private readonly RecipeService _service;

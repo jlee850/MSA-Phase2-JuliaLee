@@ -12,8 +12,11 @@
   max-width: 600px;
   margin: auto;
   padding: 20px;
+  
 }
 
 .slick-slide:hover {
   display: block;
 }
+
+

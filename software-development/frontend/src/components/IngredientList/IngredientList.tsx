@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./IngredientList.css";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import AddIcon from "@mui/icons-material/Add";
+import { AddOutlined } from "@mui/icons-material";
 
 type DataCallback = (data: string[]) => void;
 
@@ -43,9 +46,9 @@ const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
           value={item}
           onChange={(e) => setItem(e.target.value)}
         />
-        <button id="btn-add-item" onClick={addItem}>
+        <AddOutlined id="btn-add-item" onClick={addItem}>
           Add Item
-        </button>
+        </AddOutlined>
       </div>
       {items.length !== 0 && (
         <ol className="remove-list">
@@ -53,9 +56,12 @@ const IngredientList: React.FC<ChildComponentProps> = ({ onDataFromChild }) => {
             <li key={index} className="remove-list-items">
               <div className="remove-item-container">
                 <p>{listItem}</p>
-                <button id="btn-remove-item" onClick={() => removeItem(index)}>
+                <DeleteOutlinedIcon
+                  id="btn-remove-item"
+                  onClick={() => removeItem(index)}
+                >
                   Remove
-                </button>
+                </DeleteOutlinedIcon>
               </div>
             </li>
           ))}

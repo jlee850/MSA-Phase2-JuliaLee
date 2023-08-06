@@ -7,24 +7,15 @@ namespace Back_End.Services
     public class UserService : IUserService
     {
         private UserContext _userContext;
-        private List<User> _users = new List<User>
-        {
-            new User {
-                Id = Guid.NewGuid().ToString(),
-                Username = "test",
-                Password = "test",
-                TimeCreated = DateTime.Now
-            }
-        };
 
         public UserService(UserContext context)
         {
             _userContext = context;
         }
 
-        public async Task<User> Authenticate(string username, string password)
+        public async Task<User> Authenticate(User u)
         {
-            var user = await Task.Run(() => _users.SingleOrDefault(user => user.Username == username && user.Password == password));
+            var user = await Task.Run(() => _userContext.Users.SingleOrDefault(user => user.Username == u.Username && user.Password == u.Password));
 
             // Return null if user not found
             if (user == null)

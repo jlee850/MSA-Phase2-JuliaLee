@@ -4,6 +4,7 @@ namespace Back_End.Services
 {
     public interface IUserService
     {
-        Task<User> Authenticate(string username, string password);
+        Task<User> Authenticate(User user);
+        Task<User> CreateUser(User user);
     }
 }

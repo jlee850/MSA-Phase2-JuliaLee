@@ -27,6 +27,10 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({
   const onSaveRecipe = (key: number) => {
     onDataFromChild(key);
   };
+  
+  const onClearRecipe = (key: number) => {
+    onDataFromChild(key);
+  };
 
   return (
     <Slider {...settings}>
@@ -40,17 +44,24 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({
             ))}
           </ul>
           {<h3>Method</h3>}
-          <ol>
+          <p>
             {recipe.method.map((methodItem: string, index: number) => (
               <li key={index}>{methodItem}</li>
             ))}
-          </ol>
+          </p>
           <button
             className="save-recipe-btn"
             onClick={() => onSaveRecipe(index)}
           >
             {" "}
             Save Recipe{" "}
+          </button>{" "}
+          <button
+            className="clear-recipe-btn"
+            onClick={() => onClearRecipe(index)}
+          >
+            {" "}
+            Clear{" "}
           </button>{" "}
         </div>
       ))}

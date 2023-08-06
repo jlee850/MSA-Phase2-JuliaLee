@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Back_End.Models;
 using Back_End.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Back_End.Controllers
 {
@@ -16,25 +19,12 @@ namespace Back_End.Controllers
     [Route("api/User")]
     public class UserController : Controller
     {
-        private readonly UserService _service;
+        private readonly IUserService _service;
 
-        public UserController(UserService service)
+        public UserController(IUserService service)
         {
             _service = service;
         }
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> GetUser(long id)
-        //{
-        //    var user = await _service.GetUser(id);
-
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return user;
-        //}
 
         [HttpPost]
         public async Task<ActionResult<User>> CreateUser(User user)
@@ -47,25 +37,45 @@ namespace Back_End.Controllers
             }, newUser);
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateUser(long id, User user)
-        //{
-        //    if (id != user.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        [Route("login")]
+        [HttpPost]
+        public async Task<ActionResult<User>> Login(User user)
+        {
+            var newUser = await _service.Authenticate(user);
 
-        //    await _service.UpdateUser(user);
+            if (newUser is null)
+            {
+                return Unauthorized();
+            }
 
-        //    return NoContent();
-        //}
+            var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteUser(long id)
-        //{
-        //    await _service.DeleteUser(id);
-        //    return NoContent();
-        //}
+            var issuer = builder["Jwt:Issuer"];
+            var audience = builder["Jwt:Audience"];
+            var key = Encoding.ASCII.GetBytes(builder["Jwt:Key"]);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                new Claim("Id", Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti,
+                Guid.NewGuid().ToString())
+             }),
+                Expires = DateTime.UtcNow.AddMinutes(10),
+                Issuer = issuer,
+                Audience = audience,
+                SigningCredentials = new SigningCredentials
+                (new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha512Signature)
+            };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var stringToken = tokenHandler.WriteToken(token);
+
+            dynamic response = new { bearer = stringToken };
+            return Ok(response);
+        }
     }
 }
 
