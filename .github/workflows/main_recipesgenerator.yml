@@ -14,7 +14,8 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: "\software-development\frontend"
+        working-directory: "./frontend"
+
     steps:
       - uses: actions/checkout@v2
 
