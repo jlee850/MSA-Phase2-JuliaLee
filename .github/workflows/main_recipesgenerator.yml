@@ -57,4 +57,4 @@ jobs:
           app-name: "RecipesGenerator"
           slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_40D7FF53647D4D669F7E72657CECCB6F }}
-          package: "./software-developmentfrontend/build"
+          package: "./software-development/frontend/build"
