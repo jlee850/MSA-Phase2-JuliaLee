@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace Back_End.Models
 {
     public class User

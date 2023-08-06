@@ -1,11 +1,8 @@
-﻿using System;
-using Back_End.Contexts;
+﻿using Back_End.Contexts;
 using Back_End.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Net.NetworkInformation;
-using System.Data;
 using System.Text.Json;
-using System.Net.Http.Headers;
+
 
 namespace Back_End.Services
 {

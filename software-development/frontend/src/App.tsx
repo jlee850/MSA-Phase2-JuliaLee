@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import {
   useCreateRecipeMutation,
-  useGetAllRecipesQuery,
-  useGetRecipeByIdQuery,
   useLazyGetRecipeByIdQuery,
 } from "./api/apiSlice";
 import NavigationBar from "./components/NavigationBar/NavigationBar";
@@ -75,11 +72,6 @@ function App() {
     trigger(dataFromChild.join(","));
   };
 
-  const onClearRecipe = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    trigger(dataFromChild.join(","));
-  };
-
   return (
     <div>
       <NavigationBar /> <br />
@@ -103,7 +95,7 @@ function App() {
               <RecipeCarousel
                 recipes={recipes}
                 onDataFromChild={handleChildRecipe}
-              />
+              />{" "}
             </div>
           )}
         </div>

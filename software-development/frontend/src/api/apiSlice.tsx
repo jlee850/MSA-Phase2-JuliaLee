@@ -3,13 +3,19 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Recipe } from "../models/Recipe";
 import { User } from "../models/User";
 
+const fetchToken = () => {
+  return localStorage.getItem("api_token");
+};
 // Define a service using a base URL and expected endpoints
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_BASE_URL,
     prepareHeaders: (headers) => {
-      headers.set("authorization", `Basic ${btoa("test:test")}`);
+      const token = fetchToken();
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
       return headers;
     },
   }),

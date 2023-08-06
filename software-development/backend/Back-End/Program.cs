@@ -1,9 +1,7 @@
 using System.Text;
 using Back_End.Contexts;
 using Back_End.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;

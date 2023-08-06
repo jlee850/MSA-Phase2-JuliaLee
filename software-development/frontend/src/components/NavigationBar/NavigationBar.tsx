@@ -14,8 +14,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
-const pages = ["Home", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Home"];
+const settings = ["Profile", "Account", "Logout"];
 
 function NavigationBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -131,7 +131,7 @@ function NavigationBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            RECIPES
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -162,6 +162,7 @@ function NavigationBar() {
                 <Avatar alt="Julia Lee" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{
                 mt: "45px",

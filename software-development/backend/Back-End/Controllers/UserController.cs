@@ -1,12 +1,6 @@
-﻿using System;
-using Azure.Core;
-using System.Security.Policy;
-using System.Text;
-using System.Text.Encodings.Web;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
+
 using Back_End.Models;
 using Back_End.Services;
 using Microsoft.IdentityModel.Tokens;

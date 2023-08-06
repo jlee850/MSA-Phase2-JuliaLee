@@ -2,10 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Recipe } from "../../models/Recipe";
 import "./RecipeCarousel.css";
-import { useState } from "react";
-
 
 type DataCallback = (data: number) => void;
 
@@ -13,7 +10,6 @@ interface ChildComponentProps {
   recipes: any[];
   onDataFromChild: DataCallback;
 }
-
 
 const RecipeCarousel: React.FC<ChildComponentProps> = ({
   recipes,
@@ -30,11 +26,6 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({
   const onSaveRecipe = (key: number) => {
     onDataFromChild(key);
   };
-
-  // const clearCarousel = () => {
-  //   recipes.
-  // };
-
 
   return (
     <Slider {...settings}>
@@ -60,13 +51,6 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({
             {" "}
             Save Recipe{" "}
           </button>{" "}
-          {/* <button
-            className="clear-recipe-btn"
-            onClick={() => onClearRecipe(index)}
-          >
-            {" "}
-            Clear{" "}
-          </button>{" "} */}
         </div>
       ))}
     </Slider>
