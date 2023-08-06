@@ -24,11 +24,11 @@ namespace Back_End.Services
             return user;
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<User> CreateUser(User u)
         {
-            _userContext.Users.Add(user);
+            _userContext.Users.Add(u);
             await _userContext.SaveChangesAsync();
-            return user;
+            return u;
         }
     }
 }

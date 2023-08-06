@@ -1,6 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Recipe } from "../models/Recipe";
+import { User } from "../models/User";
 
 // Define a service using a base URL and expected endpoints
 export const api = createApi({
@@ -40,6 +41,13 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    signIn: builder.mutation({
+      query: (user) => ({
+        url: "User/login",
+        method: "POST",
+        body: user,
+      }),
+    }),
   }),
 });
 
@@ -52,4 +60,5 @@ export const {
   useCreateRecipeMutation,
   useDeleteRecipeMutation,
   useGetAllRecipesQuery,
+  useSignInMutation,
 } = api;
