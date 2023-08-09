@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    defaults:
+      run:
+        working-directoy: "./software-development/backend"
 
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +22,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '7.x'
+          dotnet-version: "7.x"
           include-prerelease: true
 
       - name: Build with dotnet
@@ -38,7 +41,7 @@ jobs:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -51,7 +54,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'recipe-generator-msa-backend'
-          slot-name: 'Production'
+          app-name: "recipe-generator-msa-backend"
+          slot-name: "Production"
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B7B60B68CCCA4EA3870F61A5D782951C }}
           package: .
