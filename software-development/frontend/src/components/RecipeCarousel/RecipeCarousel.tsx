@@ -41,9 +41,12 @@ const RecipeCarousel: React.FC<ChildComponentProps> = ({
           {<h3>Method</h3>}
           <p>
             {recipe.method.map((methodItem: string, index: number) => (
-              <li key={index}>{methodItem}</li>
+              <p key={index}>{methodItem}</p>
             ))}
           </p>
+          <br />
+          <br />
+          <br />
           <button
             className="save-recipe-btn"
             onClick={() => onSaveRecipe(index)}

@@ -44,6 +44,7 @@ export default function Login() {
     })
       .unwrap()
       .then((payload) => {
+        localStorage.setItem("api_token", payload.bearer);
         setToken(payload.bearer);
         navigate("/");
       });

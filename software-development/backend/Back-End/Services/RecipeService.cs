@@ -9,10 +9,13 @@ namespace Back_End.Services
     public class RecipeService
     {
         private RecipeContext _recipeContext;
+        private readonly IConfiguration _config;
 
-        public RecipeService(RecipeContext context)
+        public RecipeService(RecipeContext context, IConfiguration config)
         {
             _recipeContext = context;
+            _config = config;
+
         }
 
         public async Task<Recipe> CreateRecipe(Recipe recipe)
@@ -26,7 +29,7 @@ namespace Back_End.Services
         public async Task<string> GetRecipe(string ingredients)
         {
 
-            var apiKey = "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";
+            var apiKey = _config["OpenAIKey"];
             var endpointUrl = "https://api.openai.com/v1/chat/completions";
             var ingredients_prompt = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements for ingredients, what are 3 recipes you can make with ";
             var ingredientsArray = ingredients.Split(',');

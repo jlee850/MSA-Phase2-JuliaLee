@@ -6,7 +6,7 @@ import { User } from "../models/User";
 const fetchToken = () => {
   return localStorage.getItem("api_token");
 };
-// Define a service using a base URL and expected endpoints
+
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
