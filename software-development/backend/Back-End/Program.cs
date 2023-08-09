@@ -1,7 +1,10 @@
 using System.Text;
 using Back_End.Contexts;
+using Back_End.Models;
 using Back_End.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
@@ -44,10 +47,10 @@ builder.Services.AddAuthentication(options =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = builder.Configuration["Jwt:Issuer"],
-        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = "https://localhost:7206/",
+        ValidAudience = "http://localhost:3000/",
         IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            (Encoding.UTF8.GetBytes("recipe-server-secret-code-authentication")),
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = false,
