@@ -14,7 +14,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directoy: "./software-development/backend"
+        working-directoy: "./backend"
 
     steps:
       - uses: actions/checkout@v2
