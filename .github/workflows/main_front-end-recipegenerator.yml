@@ -13,7 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
-      run: working-directory:"./frontend"
+      run: 
+        working-directory: './frontend'
 
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +22,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v1
         with:
-          node-version: "18.x"
+          node-version: '18.x'
 
       - name: npm install, build, and test
         run: |
@@ -40,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: "Production"
+      name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -49,11 +50,11 @@ jobs:
         with:
           name: node-app
 
-      - name: "Deploy to Azure Web App"
+      - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: "front-end-recipegenerator"
-          slot-name: "Production"
+          app-name: 'front-end-recipegenerator'
+          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_932696616D224C9B9AE33A1C52E90012 }}
-          package: "./frontend/build"
+          package: './frontend/build'
