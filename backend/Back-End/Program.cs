@@ -45,7 +45,7 @@ builder.Services.AddAuthentication(options =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidIssuer = "https://localhost:7206/",
+        ValidIssuer = "https://recipe-generator-msa-backend.azurewebsites.net/",
         ValidAudience = "http://localhost:3000/",
         IssuerSigningKey = new SymmetricSecurityKey
             (Encoding.UTF8.GetBytes("recipe-server-secret-code-authentication")),
