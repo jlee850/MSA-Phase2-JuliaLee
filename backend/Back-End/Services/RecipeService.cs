@@ -30,6 +30,7 @@ namespace Back_End.Services
         {
 
             var apiKey = _config["OpenAIKey"];
+            var apiKey2 = _config["OpenAIKey2"];
             var endpointUrl = "https://api.openai.com/v1/chat/completions";
             var ingredients_prompt = "Responding only in the JSON format: { recipes: [ { name: string, ingredients: string[], method: string[] } ] }, including measurements for ingredients, what are 3 recipes you can make with ";
             var ingredientsArray = ingredients.Split(',');
@@ -41,7 +42,7 @@ namespace Back_End.Services
             ingredients_prompt += ingredientsArray[ingredientsArray.Length - 1] + "?";
 
             using var client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey + apiKey2}");
 
             var requestBody = new
             {

@@ -3,8 +3,6 @@ using Back_End.Contexts;
 using Back_End.Models;
 using Back_End.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
