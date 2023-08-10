@@ -19,7 +19,7 @@ builder.Services.AddControllers();
 //// Retrieve the configuration from appsettings.json
 var configuration = new ConfigurationBuilder()
     .SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("appsettings.json")
+    .AddJsonFile("appsettings.json", optional: true)
     .Build();
 
 var connectionString = configuration.GetConnectionString("DatabaseConnection");
